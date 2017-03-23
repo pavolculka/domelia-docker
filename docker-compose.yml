@@ -1,0 +1,24 @@
+  webserver01:
+    build: ./myweb
+    volumes: 
+      - /var/tmp/www:/var/www/
+    ports:
+      - 8888:80
+    links:
+      - dbserver01
+      - mailserver01
+  
+  dbserver01:
+    build: ./mydb
+    volumes:
+      - /var/tmp/db:/var/lib/mysql
+    ports:
+      - 3333:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=mypassword
+
+  mailserver01:
+    build: ./mymail 
+    ports:
+      - 7777:80 
+
